@@ -17,14 +17,41 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  align-items: center;
   width: 100dvw;
   height: 100dvh;
+  place-items: center;
+  display: flex;
+  align-items: center;
+  }
+.layout {
+  display: grid;
+  place-items: center;
+  align-items: center;
+  justify-content: center;
+  width: 100dvw;
+  height: 100dvh;
+  grid-template-areas: 
+  'search'
+  'result';
+  /* grid-template-columns: 1fr; */
+  /* grid-template-rows: 1fr; */
+  gap: 1rem;
   background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c);
 }
-
+.rain,
+.clouds,
+.clear {
+  background-size: cover;
+}
+.rain {
+  background-image: url('assets/rain.jpg');
+}
+.clouds {
+  background-image: url('assets/cloudly.avif');
+}
+.clear {
+  background-image: url('assets/sunny.jpg');
+}
 form {
   background-color: #fff;
   padding: .75rem;
@@ -32,8 +59,10 @@ form {
   display: grid;
   grid-template-columns: 1fr 4rem;
   grid-template-rows: 1fr;
+  grid-area: search;
   gap: .5rem;
   max-width: 50vw;
+  align-self: end;
   grid-template-areas: 'text submit';
 }
 
@@ -61,11 +90,18 @@ form input[type="submit"] {
   height: 4rem;
   background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c);
 }
+.weatherResponse {
+  background-color: #fff;
+  font-size: 1.5rem;
+  grid-area: result;
+  border-radius: .75rem;
+  position: relative;
+  min-width: 30.2dvw;
+  /* padding: .75rem; */
+}
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
