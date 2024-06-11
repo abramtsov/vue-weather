@@ -1,5 +1,5 @@
 :root {
-  --color-search: rgba(54, 22, 170, 0.4);
+  --color-search: rgba(148, 148, 148, 0.4);
   --main-color-search: rgb(40, 19, 231);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -22,6 +22,7 @@ body {
   place-items: center;
   display: flex;
   align-items: center;
+  overflow: hidden;
   }
 .layout {
   display: grid;
@@ -30,13 +31,14 @@ body {
   justify-content: center;
   width: 100dvw;
   height: 100dvh;
+  padding: 0;
   grid-template-areas: 
   'search'
   'result';
-  /* grid-template-columns: 1fr; */
-  /* grid-template-rows: 1fr; */
+align-self: start;
   gap: 1rem;
-  background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c);
+  transition: background-image .3s linear;
+  /* background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c); */
 }
 .rain,
 .clouds,
@@ -61,8 +63,11 @@ form {
   grid-template-rows: 1fr;
   grid-area: search;
   gap: .5rem;
+  border: 3px solid rgb(172, 172, 172);
   max-width: 50vw;
   align-self: end;
+  margin: 0;
+  padding: 0;
   grid-template-areas: 'text submit';
 }
 
@@ -88,7 +93,9 @@ form input[type="submit"] {
   border: none;
   width: 4rem;
   height: 4rem;
-  background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c);
+  cursor: pointer;
+  background: none;
+  /* background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c); */
 }
 .weatherResponse {
   background-color: #fff;
@@ -98,6 +105,17 @@ form input[type="submit"] {
   position: relative;
   min-width: 30.2dvw;
   /* padding: .75rem; */
+}
+.error {
+  background-color: #fff;
+  font-size: 1.5rem;
+  color: rgb(245, 53, 53);
+  border-radius: .75rem;
+  width: calc(100% - 2rem);
+  align-self: start;
+  margin: 0;
+  padding: 0;
+  /* padding: 1rem */
 }
 
 #app {

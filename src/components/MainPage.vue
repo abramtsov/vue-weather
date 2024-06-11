@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, watch } from "vue";
 import ky from "ky";
 import "animate.css";
 
@@ -8,21 +8,40 @@ defineProps({
 });
 const input = ref(null);
 let isShow = ref(false);
+let error = reactive({
+  bool: false,
+  msg: "",
+  class: "animate__animated animate__fadeInUp",
+});
+// let errorMsg = ref("");
 let weather = reactive({
   weather: "",
   wind: 0,
   temp: 0,
   description: "",
 });
-
-let weatherClass = computed(() => {
+watch(error, () => {
+  const resetErr = setTimeout(() => {
+    error.class = "animate__animated animate__fadeOutDown";
+    setTimeout(() => {
+      error.bool = false;
+      error.class = "animate__animated animate__fadeInUp";
+      error.msg = "";
+      console.log(error);
+    }, 1000);
+    return;
+  }, 3000);
+  // clearTimeout(resetErr);
+});
+const weatherClass = computed(() => {
   return weather.weather.toLocaleLowerCase();
 });
 const query = async () => {
   try {
     if (input._value.value === "") {
       isShow.value = false;
-      alert("Введите название города");
+      error.bool = true;
+      error.msg = "Field must be filled in";
       return;
     }
     isShow.value = false;
@@ -37,10 +56,10 @@ const query = async () => {
     weather.wind = weatherRequest.wind.speed;
     weather.temp = weatherRequest.main.temp;
     weather.description = weatherRequest.weather[0].description;
-    // weather.weather = weatherRequest.weather[0].main;
   } catch (e) {
     if (e.response.status === 404) {
-      console.log("город не найден");
+      error.bool = true;
+      error.msg = "City not found";
     }
   }
 };
@@ -49,7 +68,7 @@ const query = async () => {
 <template>
   <div class="layout" :class="weatherClass">
     <form action="">
-      <input type="text" ref="input" placeholder="Enter Location" />
+      <input type="text" ref="input" placeholder="Enter Location" required />
       <input type="submit" @click.prevent="query" value="&#128269;" />
     </form>
     <div
@@ -60,6 +79,9 @@ const query = async () => {
       <p>Описание: {{ weather.description }}</p>
       <p>Температура: {{ Math.ceil(weather.temp) }} &deg;</p>
       <p>Ветер: {{ Math.ceil(weather.wind) }} м/с</p>
+    </div>
+    <div class="error" :class="error.class" v-if="error.bool">
+      {{ error.msg }}
     </div>
   </div>
 </template>
