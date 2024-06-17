@@ -1,6 +1,7 @@
 :root {
-  --color-search: rgba(148, 148, 148, 0.4);
-  --main-color-search: rgb(40, 19, 231);
+  --color-search: rgba(148, 148, 148, 0.6);
+  --main-color-search: rgba(148, 148, 148, 0.6);
+  --color-resp: rgba(148, 148, 148, 1);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -17,25 +18,26 @@
 
 body {
   margin: 0;
-  width: 100dvw;
-  height: 100dvh;
+  padding: 0;
   place-items: center;
   display: flex;
   align-items: center;
-  overflow: hidden;
   }
 .layout {
+  box-sizing: border-box;
   display: grid;
   place-items: center;
   align-items: center;
   justify-content: center;
   width: 100dvw;
   height: 100dvh;
+  margin: 0;
   padding: 0;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas: 
   'search'
   'result';
-align-self: start;
   gap: 1rem;
   transition: background-image .3s linear;
   /* background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c); */
@@ -43,6 +45,7 @@ align-self: start;
 .rain,
 .clouds,
 .clear {
+  transition: background-image .3s linear;
   background-size: cover;
 }
 .rain {
@@ -72,16 +75,19 @@ form {
 }
 
 form input[type="text"] {
+  background-color: #fff;
   width:100%;
   grid-area: text;
   font-size: 2.5rem;
-  border-radius: .25rem;
+  border-radius: .85rem;
   padding: .5rem;
   border: none;
   outline: transparent;
   color: var(--main-color-search)
 }
-
+form input[type="text"]::first-letter {
+  text-transform: uppercase;
+}
 form input[type="text"]::placeholder {
   color: var(--color-search)
 }
@@ -102,9 +108,24 @@ form input[type="submit"] {
   font-size: 1.5rem;
   grid-area: result;
   border-radius: .75rem;
-  position: relative;
-  min-width: 30.2dvw;
+  color: var(--color-resp);
+  min-width: 50vw;
+  width: fit-content;
+  padding: .75rem;
+  /* position: relative; */
+  /* min-width: 30.2dvw; */
   /* padding: .75rem; */
+}
+.weatherResponse div {
+margin: 0;
+display: flex;
+align-items: center;
+flex-direction: row;
+justify-content: flex-start;
+gap: .25rem;
+}
+.weatherResponse p svg {
+  margin-top: 16px;
 }
 .error {
   background-color: #fff;
@@ -115,12 +136,11 @@ form input[type="submit"] {
   align-self: start;
   margin: 0;
   padding: 0;
-  /* padding: 1rem */
 }
 
 #app {
-  margin: 0 auto;
-  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 @media (prefers-color-scheme: light) {
