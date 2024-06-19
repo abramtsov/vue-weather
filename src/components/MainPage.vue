@@ -20,19 +20,19 @@ let weather = reactive({
   temp: 0,
   description: "",
 });
-watch(error, () => {
-  const resetErr = setTimeout(() => {
-    error.class = "animate__animated animate__fadeOutDown";
-    setTimeout(() => {
-      error.bool = false;
-      error.class = "animate__animated animate__fadeInUp";
-      error.msg = "";
-      console.log(error);
-    }, 1000);
-    return;
-  }, 3000);
-  // clearTimeout(resetErr);
-});
+// watch(error, () => {
+//   const resetErr = setTimeout(() => {
+//     error.class = "animate__animated animate__fadeOutDown";
+//     setTimeout(() => {
+//       error.bool = false;
+//       error.class = "animate__animated animate__fadeInUp";
+//       error.msg = "";
+//       console.log(error);
+//     }, 1000);
+//     return;
+//   }, 3000);
+//   // clearTimeout(resetErr);
+// });
 const weatherClass = computed(() => {
   return weather.weather.toLocaleLowerCase();
 });

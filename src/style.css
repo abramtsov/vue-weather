@@ -17,28 +17,39 @@
 
 body {
   margin: 0;
-  width: 100dvw;
-  height: 100dvh;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  /* padding:1rem; */
   place-items: center;
+  border: 10px solid red;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  justify-content: center;
+  /* overflow: hidden; */
   }
 .layout {
+  width: 100%;
+  height: 100%;
+  max-width: 90vw;
   display: grid;
   place-items: center;
   align-items: center;
   justify-content: center;
-  width: 100dvw;
-  height: 100dvh;
+  /* width: 100dvw;
+  height: 100dvh; */
   padding: 0;
   grid-template-areas: 
   'search'
   'result';
-align-self: start;
+  align-self: start;
   gap: 1rem;
   transition: background-image .3s linear;
   /* background-image: linear-gradient(to right top, #6b7dd1, #6279d2, #5975d4, #4e71d5, #426dd6, #4265d0, #425dc9, #4355c2, #4c47b1, #52389f, #55298e, #55187c); */
+  border: 10px solid;
+  box-sizing: border-box;
 }
 .rain,
 .clouds,
@@ -120,7 +131,9 @@ form input[type="submit"] {
 
 #app {
   margin: 0 auto;
-  text-align: center;
+  padding: 0;
+  width: 100%;
+  display: flex;  
 }
 
 @media (prefers-color-scheme: light) {
