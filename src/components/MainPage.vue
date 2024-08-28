@@ -20,19 +20,19 @@ let weather = reactive({
   temp: 0,
   description: "",
 });
-// watch(error, () => {
-//   const resetErr = setTimeout(() => {
-//     error.class = "animate__animated animate__fadeOutDown";
-//     setTimeout(() => {
-//       error.bool = false;
-//       error.class = "animate__animated animate__fadeInUp";
-//       error.msg = "";
-//       console.log(error);
-//     }, 1000);
-//     return;
-//   }, 3000);
-//   // clearTimeout(resetErr);
-// });
+watch(error, () => {
+  const resetErr = setTimeout(() => {
+    error.class = "animate__animated animate__fadeOutDown";
+    setTimeout(() => {
+      error.bool = false;
+      error.class = "animate__animated animate__fadeInUp";
+      error.msg = "";
+      console.log(error);
+    }, 1000);
+    return;
+  }, 3000);
+  // clearTimeout(resetErr);
+});
 const weatherClass = computed(() => {
   return weather.weather.toLocaleLowerCase();
 });
@@ -57,10 +57,10 @@ const query = async () => {
     weather.temp = weatherRequest.main.temp;
     weather.description = weatherRequest.weather[0].description;
   } catch (e) {
-    if (e.response.status === 404) {
-      error.bool = true;
-      error.msg = "City not found";
-    }
+    // if (e.response.status === 404) {
+    //   error.bool = true;
+    //   error.msg = "City not found";
+    // }
   }
 };
 </script>
@@ -71,6 +71,7 @@ const query = async () => {
       <input type="text" ref="input" placeholder="Enter Location" required />
       <input type="submit" @click.prevent="query" value="&#128269;" />
     </form>
+    <span class="loader"></span>
     <div
       v-if="isShow"
       class="weatherResponse animate__animated animate__fadeInUp"
