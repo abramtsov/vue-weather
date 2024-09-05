@@ -13,7 +13,7 @@ let error = reactive({
   msg: "",
   class: "animate__animated animate__fadeInUp",
 });
-// let errorMsg = ref("");
+let loader = ref("");
 let weather = reactive({
   weather: "",
   wind: 0,
@@ -23,12 +23,9 @@ let weather = reactive({
 watch(error, () => {
   const resetErr = setTimeout(() => {
     error.class = "animate__animated animate__fadeOutDown";
-    setTimeout(() => {
-      error.bool = false;
-      error.class = "animate__animated animate__fadeInUp";
-      error.msg = "";
-      console.log(error);
-    }, 1000);
+    error.bool = false;
+    error.class = "animate__animated animate__fadeInUp";
+    error.msg = "";
     return;
   }, 3000);
   // clearTimeout(resetErr);
@@ -45,11 +42,13 @@ const query = async () => {
       return;
     }
     isShow.value = false;
+    loader.value = true;
     let weatherRequest = await ky
       .get(
         `https://api.openweathermap.org/data/2.5/weather?q=${input._value.value}&appid=d59df76d4159ffd1335453f3f101f469&lang=ru&units=metric`
       )
       .json();
+    loader.value = false;
     isShow.value = true;
     console.log(weatherRequest);
     weather.weather = weatherRequest.weather[0].main;
@@ -57,10 +56,19 @@ const query = async () => {
     weather.temp = weatherRequest.main.temp;
     weather.description = weatherRequest.weather[0].description;
   } catch (e) {
-    // if (e.response.status === 404) {
-    //   error.bool = true;
-    //   error.msg = "City not found";
-    // }
+    // console.log(e.name);
+    if (e.name === "TimeoutError" || "TypeError") {
+      loader.value = false;
+      error.bool = true;
+      error.msg = "Check your Internet connection";
+      return;
+    }
+    if (e.response.status === 404) {
+      loader.value = false;
+      error.bool = true;
+      error.msg = "City not found";
+      return;
+    }
   }
 };
 </script>
@@ -68,10 +76,19 @@ const query = async () => {
 <template>
   <div class="layout" :class="weatherClass">
     <form action="">
-      <input type="text" ref="input" placeholder="Enter Location" required />
+      <input
+        type="text"
+        ref="input"
+        placeholder="Enter Location"
+        required
+        autofocus
+      />
       <input type="submit" @click.prevent="query" value="&#128269;" />
+      <div>
+        <span v-if="loader" class="loader"></span>
+      </div>
     </form>
-    <span class="loader"></span>
+
     <div
       v-if="isShow"
       class="weatherResponse animate__animated animate__fadeInUp"

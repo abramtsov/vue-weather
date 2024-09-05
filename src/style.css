@@ -66,35 +66,43 @@ body {
   background-position-y: 0%;
 }
 form {
-  border:10px solid;
-  background-color: #fff;
-  padding: .75rem;
+  /* border:10px solid; */
+  background-color: #ffffff;
+  padding: 1rem;
   border-radius: .75rem;
   display: grid;
-  grid-template-columns: 1fr 4rem;
+  grid-template-columns: 1fr 4rem 4rem;
   grid-template-rows: 1fr;
   grid-area: search;
   gap: .5rem;
-  border: 3px solid rgb(172, 172, 172);
+  /* border: 3px solid rgb(172, 172, 172); */
   align-self: end;
   margin: 0;
   padding: 0;
   width: min(90vw, calc(800px - 6px));
-  grid-template-areas: 'text submit';
+  grid-template-areas: 'text loader submit';
 }
-
+form div {
+  height: 100%;
+  display: flex;
+  margin-top: 25%;
+  justify-content: center;
+}
 form input[type="text"] {
   background-color: #fff;
   width:100%;
   grid-area: text;
-  font-size: 2.5rem;
+  font-size: 2rem;
   border-radius: .85rem;
-  padding: .5rem;
+  padding: 1rem;
   border: none;
   outline: transparent;
   color: var(--main-color-search)
 }
-
+/* form input[type="text"]::first-letter {
+  text-transform: uppercase;
+  color: red;
+} */
 form input[type="text"]::placeholder {
   color: var(--color-search)
 }
@@ -109,16 +117,16 @@ form input[type="submit"] {
   cursor: pointer;
   background: none;
 }
+
 .weatherResponse {
-  
   background-color: #fff;
   font-size: 1.5rem;
   grid-area: result;
   border-radius: .75rem;
   color: var(--color-resp);
-  min-width: 50vw;
-  width: fit-content;
+  width: min(calc(90vw - 1.5rem), calc(800px - 1.5rem));
   padding: .75rem;
+  align-self: start;
 }
 .weatherResponse div {
 margin: 0;
@@ -136,7 +144,7 @@ gap: .25rem;
   font-size: 1.5rem;
   color: rgb(245, 53, 53);
   border-radius: .75rem;
-  width: calc(50vw - 3.5rem);
+  width: min(calc(90vw - 2rem), calc(800px - 2rem));
   align-self: start;
   margin: 0;
   padding: 1rem;
@@ -149,8 +157,8 @@ gap: .25rem;
   animation: bblFadInOut 1.8s infinite ease-in-out;
 }
 .loader {
-  color: #FFF;
-  font-size: 7px;
+  color: #c71e1e;
+  font-size: 5px;
   position: relative;
   text-indent: -9999em;
   transform: translateZ(0);
