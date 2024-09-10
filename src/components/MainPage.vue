@@ -52,6 +52,10 @@ const query = async () => {
     isShow.value = true;
     console.log(weatherRequest);
     weather.weather = weatherRequest.weather[0].main;
+    weather.icon =
+      "http://openweathermap.org/img/w/" +
+      weatherRequest.weather[0].icon +
+      ".png";
     weather.wind = weatherRequest.wind.speed;
     weather.temp = weatherRequest.main.temp;
     weather.description = weatherRequest.weather[0].description;
@@ -94,7 +98,11 @@ const query = async () => {
       class="weatherResponse animate__animated animate__fadeInUp"
     >
       <!-- <p>Погода: {{ weather.weather }}</p> -->
-      <p>За окном {{ weather.description }}</p>
+      <div>
+        <img :src="weather.icon" alt="" />
+        <p>За окном {{ weather.description }}</p>
+      </div>
+
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"

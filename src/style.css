@@ -1,6 +1,6 @@
 :root {
   --color-search: rgba(148, 148, 148, 0.6);
-  --main-color-search: rgba(50, 50, 50, 0.8);
+  --main-color-search: rgba(30, 30, 30, 0.8);
   --color-resp: rgba(80, 80, 80, 1);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -43,11 +43,9 @@ body {
   gap: 1rem;
   transition: background-position .3s linear;
   background-color: cadetblue;
-  /* background: linear-gradient(0deg, rgba(246,206,20,1) 0%, rgba(57,193,249,1) 10%, rgba(184,184,184,1) 15%, rgba(238,212,90,1) 18%, rgba(57,193,249,1) 25%, rgba(0,212,255,1) 100%); */
   background-size: 1100%;
   background-repeat: no-repeat;
   box-sizing: border-box;
-  /* background-size: cover; */
 }
 .rain,
 .clouds,
@@ -55,11 +53,9 @@ body {
   transition: background-position .3s linear;
 }
 .rain {
-  /* transition: background-position .3s linear; */
   background-position-y: 0 40%;
 }
 .clouds {
-  /* transition: background-position .3s linear; */
   background-position-y: 15%;
 }
 .clear {
@@ -77,9 +73,10 @@ form {
   gap: .5rem;
   /* border: 3px solid rgb(172, 172, 172); */
   align-self: end;
+  height: 70px;
   margin: 0;
   padding: 0;
-  width: min(90vw, calc(800px - 6px));
+  width: min(90vw, 800px);
   grid-template-areas: 'text loader submit';
 }
 form div {
@@ -119,22 +116,35 @@ form input[type="submit"] {
 }
 
 .weatherResponse {
-  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-items:stretch;
+  justify-content:stretch;
   font-size: 1.5rem;
   grid-area: result;
   border-radius: .75rem;
   color: var(--color-resp);
-  width: min(calc(90vw - 1.5rem), calc(800px - 1.5rem));
-  padding: .75rem;
+  width: min(90vw, 800px);
+  /* padding: .75rem; */
   align-self: start;
+  gap: 1rem;
 }
 .weatherResponse div {
+  background-color: #fff;
 margin: 0;
+height: 70px;
+/* border:1px solid; */
+border-radius: .5rem;
+
 display: flex;
+flex: 1;
 align-items: center;
 flex-direction: row;
-justify-content: flex-start;
-gap: .25rem;
+justify-content: center;
+}
+.weatherResponse div p{
+padding: 0;
+margin: 0;
 }
 .weatherResponse p svg {
   margin-top: 16px;
