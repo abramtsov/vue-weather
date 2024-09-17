@@ -62,7 +62,7 @@ body {
   background-position-y: 0%;
 }
 form {
-  /* border:10px solid; */
+  border:1px solid;
   background-color: #ffffff;
   padding: 1rem;
   border-radius: .75rem;
@@ -75,6 +75,7 @@ form {
   align-self: end;
   height: 70px;
   margin: 0;
+  overflow: hidden;
   padding: 0;
   width: min(90vw, 800px);
   grid-template-areas: 'text loader submit';
@@ -84,6 +85,7 @@ form div {
   display: flex;
   margin-top: 25%;
   justify-content: center;
+  border: 1px solid;
 }
 form input[type="text"] {
   background-color: #fff;
@@ -94,7 +96,8 @@ form input[type="text"] {
   padding: 1rem;
   border: none;
   outline: transparent;
-  color: var(--main-color-search)
+  color: var(--main-color-search);
+  border: 1px solid;
 }
 /* form input[type="text"]::first-letter {
   text-transform: uppercase;
@@ -107,6 +110,7 @@ form input[type="text"]::placeholder {
 form input[type="submit"] {
   grid-area: submit;
   font-size: 2rem;
+  border: 1px solid;
   border-radius: 50%;
   border: none;
   width: 4rem;
@@ -117,11 +121,14 @@ form input[type="submit"] {
 
 .weatherResponse {
   display: flex;
+  flex-direction: row;
+  border: 1px solid;
   align-items: center;
-  justify-items:stretch;
-  justify-content:stretch;
+  justify-items:space-between;
+  justify-content:space-between;
   font-size: 1.5rem;
   grid-area: result;
+  flex-wrap: wrap;
   border-radius: .75rem;
   color: var(--color-resp);
   width: min(90vw, 800px);
@@ -131,23 +138,36 @@ form input[type="submit"] {
 }
 .weatherResponse div {
   background-color: #fff;
+  border: 1px solid;
 margin: 0;
+flex-shrink: 1;
+flex-grow: 1;
+flex-basis: auto;
 height: 70px;
-/* border:1px solid; */
 border-radius: .5rem;
-
+font-size: 1rem;
+font-weight: 600;
 display: flex;
-flex: 1;
+/* flex: 1; */
 align-items: center;
 flex-direction: row;
 justify-content: center;
 }
 .weatherResponse div p{
 padding: 0;
+border: 1px solid;
 margin: 0;
 }
-.weatherResponse p svg {
-  margin-top: 16px;
+.weatherResponse div p::first-letter {
+  text-transform: uppercase;
+}
+.weatherResponse svg {
+  /* display: block; */
+  border:1px solid;
+}
+.weatherResponse div img {
+  border:1px solid;
+  width: 2.5rem;
 }
 .error {
   background-color: #fff;
