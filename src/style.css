@@ -73,8 +73,8 @@ form {
   align-self: end;
   height: 70px;
   margin: 0;
-  padding: 0;
-  width: min(90vw, 800px);
+  padding: 0 1rem;
+  width: min(calc(90vw - 2rem), calc(800px - 2rem));
   grid-template-areas: 'text loader submit';
   
 }
@@ -88,8 +88,8 @@ form input[type="text"] {
   width:94%;
   grid-area: text;
   font-size: 2rem;
-  border-radius: .85rem;
-  padding: 0 1rem;
+  border-radius: .5rem;
+  /* padding: 0 1rem; */
   border: 1px solid;
   outline: transparent;
   color: var(--main-color-search)
@@ -106,7 +106,7 @@ form input[type="submit"] {
   border-radius: .5rem;
   grid-area: submit;
   font-size: 2rem;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   border: none;
   width: 4rem;
   cursor: pointer;
