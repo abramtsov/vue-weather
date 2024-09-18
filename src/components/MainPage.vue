@@ -45,16 +45,7 @@ const query = async () => {
     loader.value = true;
     let weatherRequest = await ky
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${input._value.value}&appid=d59df76d4159ffd1335453f3f101f469&lang=ru&units=metric`,
-        {
-          // headers: {
-          //   "Content-Type": "application/json",
-          //   "Access-Control-Allow-Origin": "*",
-          //   "Access-Control-Allow-Headers":
-          //     "Origin, X-Requested-With, Content-Type, Accept",
-          //   "Access-Control-Allow-Methods": "GET, POST",
-          // },
-        }
+        `https://api.openweathermap.org/data/2.5/weather?q=${input._value.value}&appid=d59df76d4159ffd1335453f3f101f469&lang=ru&units=metric`
       )
       .json();
     loader.value = false;
