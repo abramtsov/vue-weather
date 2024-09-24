@@ -45,7 +45,8 @@ const query = async () => {
     loader.value = true;
     let weatherRequest = await ky
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${input._value.value}&appid=d59df76d4159ffd1335453f3f101f469&lang=ru&units=metric`,
+        // `https://api.openweathermap.org/data/2.5/weather?q=${input._value.value}&appid=d59df76d4159ffd1335453f3f101f469&lang=ru&units=metric`,
+        `https://api.weatherapi.com/v1/current.json?key=ef804e37e4dc40b9813122333242409&q=${input._value.value}&aqi=no`,
         {
           // headers: {
           //   "Content-Type": "application/json",
@@ -60,23 +61,20 @@ const query = async () => {
     loader.value = false;
     isShow.value = true;
     console.log(weatherRequest);
-    weather.weather = weatherRequest.weather[0].main;
-    weather.icon =
-      "http://openweathermap.org/img/w/" +
-      weatherRequest.weather[0].icon +
-      ".png";
-    weather.wind = weatherRequest.wind.speed;
-    weather.temp = weatherRequest.main.temp;
-    weather.description = weatherRequest.weather[0].description;
+    // weather.weather = weatherRequest.weather[0].main;
+    weather.icon = weatherRequest.current.condition.icon;
+    weather.wind = weatherRequest.current.wind_kph;
+    weather.temp = weatherRequest.current.temp_c;
+    weather.description = weatherRequest.current.condition.text;
   } catch (e) {
-    // console.log(e.name);
-    if (e.name === "TimeoutError" || "TypeError") {
+    console.log(e.response.status);
+    if (e.name === "TimeoutError" || e.name === "TypeError") {
       loader.value = false;
       error.bool = true;
       error.msg = "Check your Internet connection";
       return;
     }
-    if (e.response.status === 404) {
+    if (e.response.status === 404 || e.response.status === 400) {
       loader.value = false;
       error.bool = true;
       error.msg = "City not found";
@@ -169,7 +167,7 @@ const query = async () => {
             d="M18 5c-2.206 0-4 1.794-4 4h2c0-1.103.897-2 2-2s2 .897 2 2-.897 2-2 2H2v2h16c2.206 0 4-1.794 4-4s-1.794-4-4-4zM2 15h4v2H2z"
           ></path>
         </svg>
-        <p>Ветер: {{ Math.ceil(weather.wind) }} м/с</p>
+        <p>Ветер: {{ Math.ceil((weather.wind * 1000) / 3600) }} м/с</p>
       </div>
     </div>
     <div class="error" :class="error.class" v-if="error.bool">

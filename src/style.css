@@ -85,7 +85,7 @@ form div {
 }
 form input[type="text"] {
   background-color: #fff;
-  width:94%;
+  width:100%;
   grid-area: text;
   font-size: 2rem;
   border-radius: .5rem;
