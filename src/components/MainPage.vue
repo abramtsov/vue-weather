@@ -33,6 +33,17 @@ watch(error, () => {
 const weatherClass = computed(() => {
   return weather.weather.toLocaleLowerCase();
 });
+const addFav = () => {
+  let fav = localStorage.getItem("city");
+  if (fav != null) {
+    console.log("yes");
+    fav.push(input._value.value);
+    localStorage.setItem("city", fav);
+  } else {
+    localStorage.setItem("city", input._value.value);
+  }
+  console.log("no");
+};
 const query = async () => {
   try {
     if (input._value.value === "") {
@@ -62,6 +73,7 @@ const query = async () => {
     isShow.value = true;
     console.log(weatherRequest);
     // weather.weather = weatherRequest.weather[0].main;
+    weather.humidity = weatherRequest.current.humidity;
     weather.icon = weatherRequest.current.condition.icon;
     weather.wind = weatherRequest.current.wind_kph;
     weather.temp = weatherRequest.current.temp_c;
@@ -86,6 +98,20 @@ const query = async () => {
 
 <template>
   <div class="layout" :class="weatherClass">
+    <div class="fav">
+      <div>
+        <p>i</p>
+      </div>
+      <div>
+        <p>i</p>
+      </div>
+      <div>
+        <p>i</p>
+      </div>
+      <div>
+        <p>i</p>
+      </div>
+    </div>
     <form action="">
       <input
         type="text"
@@ -95,7 +121,7 @@ const query = async () => {
         autofocus
       />
       <input type="submit" @click.prevent="query" value="&#128269;" />
-      <button class="cityFav" v-if="isShow">
+      <button class="cityFav" v-if="isShow" @click.prevent="addFav">
         <svg
           height="2rem"
           width="2rem"
@@ -169,6 +195,38 @@ const query = async () => {
         </svg>
         <p>Ветер: {{ Math.ceil((weather.wind * 1000) / 3600) }} м/с</p>
       </div>
+      <div>
+        <svg
+          fill="#404040"
+          height="24px"
+          width="24px"
+          version="1.1"
+          id="Capa_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 328.61 328.61"
+          xml:space="preserve"
+          stroke="#404040"
+          stroke-width="8.929164999999999"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke="#CCCCCC"
+            stroke-width="0.657222"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <g>
+              <path
+                d="M209.306,50.798c-2.452-3.337-7.147-4.055-10.485-1.602c-3.338,2.453-4.055,7.147-1.603,10.485 c54.576,74.266,66.032,123.541,66.032,151.8c0,27.691-8.272,52.794-23.293,70.685c-17.519,20.866-42.972,31.446-75.651,31.446 c-73.031,0-98.944-55.018-98.944-102.131c0-52.227,28.103-103.234,51.679-136.829c25.858-36.847,52.11-61.415,52.37-61.657 c3.035-2.819,3.209-7.565,0.39-10.6c-2.819-3.034-7.565-3.209-10.599-0.39c-1.11,1.031-27.497,25.698-54.254,63.765 c-24.901,35.428-54.586,89.465-54.586,145.71c0,31.062,9.673,59.599,27.236,80.353c20.361,24.061,50.345,36.779,86.708,36.779 c36.794,0,66.926-12.726,87.139-36.801c17.286-20.588,26.806-49.117,26.806-80.33C278.25,156.216,240.758,93.597,209.306,50.798z"
+              ></path>
+            </g>
+          </g>
+        </svg>
+        <p>Влажность: {{ weather.humidity }}%</p>
+      </div>
     </div>
     <div class="error" :class="error.class" v-if="error.bool">
       {{ error.msg }}
@@ -177,6 +235,7 @@ const query = async () => {
 </template>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .read-the-docs {
   color: #888;
 }
