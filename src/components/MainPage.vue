@@ -36,13 +36,16 @@ const weatherClass = computed(() => {
 const addFav = () => {
   let fav = localStorage.getItem("city");
   if (fav != null) {
-    console.log("yes");
-    fav.push(input._value.value);
-    localStorage.setItem("city", fav);
+    fav = JSON.parse(fav);
+    if (fav.cities.length < 4) {
+      fav.cities.push(input._value.value);
+      localStorage.setItem("city", JSON.stringify({ cities: fav.cities }));
+    }
   } else {
-    localStorage.setItem("city", input._value.value);
+    let cities = [];
+    cities.push(input._value.value);
+    localStorage.city = JSON.stringify({ cities });
   }
-  console.log("no");
 };
 const query = async () => {
   try {
