@@ -75,11 +75,28 @@ body {
   column-gap: .25rem;
 }
 .fav div {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   border: 1px solid red;
   border-radius: .75rem;
+  background-color: #fff;
   padding: .5rem;
   height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fav div button {
+  opacity: 0;
+  height: fit-content;
+  transition: .2s linear;
+  border: none;
+  color:tomato;
+  font-size: 1.5rem;
+  background-color: transparent;
+}
+.fav div:hover button {
+  opacity: 1;
+  cursor: pointer;
 }
 form {
   border:1px solid;
@@ -107,7 +124,7 @@ form div {
 }
 form input[type="text"] {
   background-color: #fff;
-  width:100%;
+  width:auto;
   grid-area: text;
   font-size: 2rem;
   border-radius: .5rem;
@@ -127,7 +144,7 @@ form input[type="text"]::placeholder {
 form input[type="submit"] {
   border-radius: .5rem;
   grid-area: submit;
-  font-size: 2rem;
+  font-size: 1.75rem;
   /* border-radius: 50%; */
   border: none;
   width: 4rem;
@@ -135,7 +152,16 @@ form input[type="submit"] {
   background: none;
   border: 1px solid black;
 }
-
+.cityFav {
+  border-radius: 0.5rem;
+  border: 1px solid #000;
+  height: 42px;
+  transition: 0.3s linear;
+}
+.cityFav:hover {
+  background-color: rgba(55, 146, 221, 0.2);
+  cursor: pointer;
+}
 .weatherResponse {
   display: flex;
   flex-direction: row;

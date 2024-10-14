@@ -8,6 +8,7 @@ defineProps({
 });
 const input = ref(null);
 let isShow = ref(false);
+let favList = ref();
 let error = reactive({
   bool: false,
   msg: "",
@@ -35,16 +36,22 @@ const weatherClass = computed(() => {
 });
 const addFav = () => {
   let fav = localStorage.getItem("city");
+
   if (fav != null) {
     fav = JSON.parse(fav);
-    if (fav.cities.length < 4) {
-      fav.cities.push(input._value.value);
-      localStorage.setItem("city", JSON.stringify({ cities: fav.cities }));
+    if (!fav.cities.includes(weather.city)) {
+      if (fav.cities.length < 4) {
+        fav.cities.push(weather.city);
+        localStorage.setItem("city", JSON.stringify({ cities: fav.cities }));
+      }
+      showFav();
     }
+    console.log("yes");
   } else {
     let cities = [];
-    cities.push(input._value.value);
+    cities.push(weather.city);
     localStorage.city = JSON.stringify({ cities });
+    showFav();
   }
 };
 const query = async () => {
@@ -76,6 +83,7 @@ const query = async () => {
     isShow.value = true;
     console.log(weatherRequest);
     // weather.weather = weatherRequest.weather[0].main;
+    weather.city = weatherRequest.location.name;
     weather.humidity = weatherRequest.current.humidity;
     weather.icon = weatherRequest.current.condition.icon;
     weather.wind = weatherRequest.current.wind_kph;
@@ -97,22 +105,21 @@ const query = async () => {
     }
   }
 };
+const showFav = () => {
+  console.log("add fav");
+  let fav = localStorage.getItem("city");
+  fav = JSON.parse(fav);
+  favList = fav.cities;
+  console.log(favList);
+};
 </script>
 
 <template>
   <div class="layout" :class="weatherClass">
     <div class="fav">
-      <div>
-        <p>i</p>
-      </div>
-      <div>
-        <p>i</p>
-      </div>
-      <div>
-        <p>i</p>
-      </div>
-      <div>
-        <p>i</p>
+      <div v-for="item in favList" :key="item">
+        {{ item }}
+        <button>&#10005;</button>
       </div>
     </div>
     <form action="">
