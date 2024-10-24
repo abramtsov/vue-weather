@@ -72,10 +72,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  column-gap: .25rem;
+  column-gap: 3.74%;
 }
 .fav div {
-  flex: 1 1 auto;
+  flex: 0 1 20%;
   border: 1px solid red;
   border-radius: .75rem;
   background-color: #fff;
@@ -83,7 +83,15 @@ body {
   height: 54px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+.fav div:hover {
+  cursor: pointer;
+}
+.fav div p {
+  width: 100%;
+  text-align: center;
+  /* border: 1px solid; */
 }
 .fav div button {
   opacity: 0;

@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, computed, watch } from "vue";
+import { reactive, ref, computed, watch, onMounted, onBeforeMount } from "vue";
 import ky from "ky";
 import "animate.css";
 
@@ -34,6 +34,13 @@ watch(error, () => {
 const weatherClass = computed(() => {
   return weather.weather.toLocaleLowerCase();
 });
+const showFav = () => {
+  console.log("add fav");
+  let fav = localStorage.getItem("city");
+  fav = JSON.parse(fav);
+  favList.value = fav.cities;
+  console.log(favList.value);
+};
 const addFav = () => {
   let fav = localStorage.getItem("city");
 
@@ -54,7 +61,7 @@ const addFav = () => {
     showFav();
   }
 };
-const query = async () => {
+const query = async (item) => {
   try {
     if (input._value.value === "") {
       isShow.value = false;
@@ -66,17 +73,7 @@ const query = async () => {
     loader.value = true;
     let weatherRequest = await ky
       .get(
-        // `https://api.openweathermap.org/data/2.5/weather?q=${input._value.value}&appid=d59df76d4159ffd1335453f3f101f469&lang=ru&units=metric`,
-        `https://api.weatherapi.com/v1/current.json?key=ef804e37e4dc40b9813122333242409&q=${input._value.value}&aqi=no`,
-        {
-          // headers: {
-          //   "Content-Type": "application/json",
-          //   "Access-Control-Allow-Origin": "*",
-          //   "Access-Control-Allow-Headers":
-          //     "Origin, X-Requested-With, Content-Type, Accept",
-          //   "Access-Control-Allow-Methods": "GET, POST",
-          // },
-        }
+        `https://api.weatherapi.com/v1/current.json?key=ef804e37e4dc40b9813122333242409&q=${input._value.value}&aqi=no`
       )
       .json();
     loader.value = false;
@@ -105,21 +102,28 @@ const query = async () => {
     }
   }
 };
-const showFav = () => {
-  console.log("add fav");
-  let fav = localStorage.getItem("city");
-  fav = JSON.parse(fav);
-  favList = fav.cities;
-  console.log(favList);
+const queryFav = (item) => {
+  if (event.target.tagName === "BUTTON") return;
+  input._value.value = item;
+  query(input._value.value);
 };
+const removeFav = (item, index) => {
+  console.log(favList.value);
+  favList.value.splice(index, 1);
+  let arr = favList.value;
+  localStorage.setItem("city", JSON.stringify({ cities: arr }));
+};
+onBeforeMount(showFav);
 </script>
 
 <template>
   <div class="layout" :class="weatherClass">
     <div class="fav">
-      <div v-for="item in favList" :key="item">
-        {{ item }}
-        <button>&#10005;</button>
+      <div v-for="(item, index) in favList" :key="item" @click="queryFav(item)">
+        <p>
+          {{ item }}
+        </p>
+        <button @click="removeFav(item, index)">&#10005;</button>
       </div>
     </div>
     <form action="">
