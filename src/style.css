@@ -2,6 +2,7 @@
   --color-search: rgba(148, 148, 148, 0.6);
   --main-color-search: rgba(30, 30, 30, 0.8);
   --color-resp: rgba(80, 80, 80, 1);
+  --bgc: rgb(71, 177, 247);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -29,6 +30,7 @@ body {
   align-items: center;
   }
 .layout {
+  box-shadow: 0px 0px 180px 80px rgba(98, 121, 139, 0.5) inset;
   overflow: hidden;
   box-sizing: border-box;
   display: grid;
@@ -47,7 +49,7 @@ body {
   'result';
   gap: .25rem;
   transition: background-position .3s linear;
-  background-color: cadetblue;
+  background-color: var(--bgc);
   box-sizing: border-box;
 }
 .rain,
@@ -228,7 +230,7 @@ margin: 0;
   font-size: 1.5rem;
   color: rgb(245, 53, 53);
   border-radius: .75rem;
-  width: min(calc(90vw - 2rem), calc(800px - 2rem));
+  width: min(calc(90vw - 2rem), calc(820px - 2rem));
   align-self: start;
   margin: 0;
   padding: 1rem;
@@ -246,7 +248,7 @@ margin: 0;
   align-items: end;
   justify-content: center;
   flex-direction: row;
-  color: #c71e1e;
+  color: var(--bgc);
   font-size: 5px;
   position: relative;
   text-indent: -9999em;

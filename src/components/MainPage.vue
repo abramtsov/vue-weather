@@ -35,11 +35,9 @@ const weatherClass = computed(() => {
   return weather.weather.toLocaleLowerCase();
 });
 const showFav = () => {
-  console.log("add fav");
   let fav = localStorage.getItem("city");
   fav = JSON.parse(fav);
   favList.value = fav.cities;
-  console.log(favList.value);
 };
 const addFav = () => {
   let fav = localStorage.getItem("city");
@@ -53,7 +51,6 @@ const addFav = () => {
       }
       showFav();
     }
-    console.log("yes");
   } else {
     let cities = [];
     cities.push(weather.city);
@@ -78,8 +75,6 @@ const query = async (item) => {
       .json();
     loader.value = false;
     isShow.value = true;
-    console.log(weatherRequest);
-    // weather.weather = weatherRequest.weather[0].main;
     weather.city = weatherRequest.location.name;
     weather.humidity = weatherRequest.current.humidity;
     weather.icon = weatherRequest.current.condition.icon;
@@ -87,7 +82,7 @@ const query = async (item) => {
     weather.temp = weatherRequest.current.temp_c;
     weather.description = weatherRequest.current.condition.text;
   } catch (e) {
-    console.log(e.response.status);
+    // console.log(e.response.status);
     if (e.name === "TimeoutError" || e.name === "TypeError") {
       loader.value = false;
       error.bool = true;
@@ -108,7 +103,6 @@ const queryFav = (item) => {
   query(input._value.value);
 };
 const removeFav = (item, index) => {
-  console.log(favList.value);
   favList.value.splice(index, 1);
   let arr = favList.value;
   localStorage.setItem("city", JSON.stringify({ cities: arr }));
