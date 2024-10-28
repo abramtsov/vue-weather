@@ -115,7 +115,7 @@ form {
   display: grid;
   align-items: center;
   align-content: center;
-  grid-template-columns: 1fr 4rem 4rem;
+  grid-template-columns: 1fr 4rem;
   grid-template-rows: 1fr;
   grid-area: search;
   column-gap: .5rem;
@@ -131,6 +131,7 @@ form div {
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 form input[type="text"] {
   background-color: #fff;
@@ -245,11 +246,13 @@ margin: 0;
 }
 .loader {
   display: flex;
-  align-items: end;
+  align-items:center;
   justify-content: center;
   flex-direction: row;
   color: var(--bgc);
   font-size: 5px;
+  border: 1px solid red;
+  /* margin-top:50%; */
   position: relative;
   text-indent: -9999em;
   transform: translateZ(0);
@@ -258,8 +261,8 @@ margin: 0;
 .loader:before,
 .loader:after {
   content: '';
+  top:2rem;
   position: absolute;
-  /* top: 0; */
 }
 .loader:before {
   left: -3.5em;
