@@ -28,25 +28,11 @@ const weatherClass = computed(() => {
 });
 const showFav = () => {
   let fav = localStorage.getItem("city");
+  if (fav == null) return;
   fav = JSON.parse(fav);
   favList.value = fav.cities;
 };
-// const onAfterLeaveShow = () => {
-//   if (error.msg == false) return;
-//   error.bool = true;
-// };
-// const onAfterLeaveEr = () => {
-//   console.log(boolQuery.value);
-//   console.log(weather.city);
-//   error.bool = false;
-//   error.msg = "";
-// };
-// const onAfterEnterEr = () => {
-//   setTimeout(() => {
-//     error.bool = false;
-//     error.msg = "";
-//   }, 3000);
-// };
+
 const addFav = () => {
   let fav = localStorage.getItem("city");
 
@@ -87,7 +73,7 @@ const query = async (item) => {
       .json();
     boolQuery.value = true;
     loader.value = false;
-    error.bool = false;
+    // error.bool = false;
     error.msg = "";
     isShow.value = true;
     weather.city = weatherRequest.location.name;
@@ -149,36 +135,49 @@ onBeforeMount(showFav);
         autofocus
       />
       <div>
-        <input
-          v-if="!boolQuery"
-          type="submit"
-          @click.prevent="query"
-          value="&#128269;"
-        />
-        <button v-else class="cityFav" @click.prevent="addFav">
-          <svg
-            height="2rem"
-            width="2rem"
-            version="1.1"
-            id="Layer_1"
-            viewBox="0 0 512 512"
-            xml:space="preserve"
-          >
-            <path
-              style="fill: #ffda44"
-              d="M276.014,23.866l67.027,135.799l149.825,21.785c18.306,2.662,25.615,25.157,12.369,38.071
+        <Transition
+          name="custom-classes"
+          enter-active-class="animate__animated animate__slideInDown"
+          leave-active-class="animate__animated animate__slideOutDown"
+        >
+          <input
+            v-if="!boolQuery"
+            type="submit"
+            @click.prevent="query"
+            value="&#128269;"
+          />
+        </Transition>
+
+        <Transition
+          name="custom-classes"
+          enter-active-class="animate__animated animate__slideInDown"
+          leave-active-class="animate__animated animate__slideOutDown"
+        >
+          <button v-if="boolQuery" class="cityFav" @click.prevent="addFav">
+            <svg
+              height="2rem"
+              width="2rem"
+              version="1.1"
+              id="Layer_1"
+              viewBox="0 0 512 512"
+              xml:space="preserve"
+            >
+              <path
+                style="fill: #ffda44"
+                d="M276.014,23.866l67.027,135.799l149.825,21.785c18.306,2.662,25.615,25.157,12.369,38.071
 	L396.825,325.205l25.578,149.24c3.125,18.232-16.012,32.135-32.385,23.528l-134.025-70.452l-134.016,70.452
 	c-16.374,8.608-35.511-5.294-32.386-23.528l25.58-149.241L6.764,219.521c-13.246-12.912-5.937-35.409,12.369-38.071l149.824-21.787
 	l67.026-135.798C244.171,7.277,267.827,7.277,276.014,23.866z"
-            />
-            <path
-              style="fill: #ffaa00"
-              d="M492.867,181.448l-149.825-21.785L276.014,23.866c-4.215-8.541-12.524-12.695-20.718-12.441v416.463
+              />
+              <path
+                style="fill: #ffaa00"
+                d="M492.867,181.448l-149.825-21.785L276.014,23.866c-4.215-8.541-12.524-12.695-20.718-12.441v416.463
 	l0.698-0.366l134.025,70.451c16.374,8.607,35.51-5.296,32.386-23.528l-25.578-149.241l108.409-105.685
 	C518.482,206.605,511.172,184.11,492.867,181.448z"
-            />
-          </svg>
-        </button>
+              />
+            </svg>
+          </button>
+        </Transition>
       </div>
     </form>
 
