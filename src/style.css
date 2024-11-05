@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: "Montserrat Alternates", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
     font-style: normal;
   
@@ -34,13 +34,13 @@ body {
   }
   @keyframes loader {
     0% {
-      box-shadow: 0px 0px 0px 0px rgba(34, 60, 80, 0.6);
+      box-shadow: 0px 0px 0px 0px rgba(34, 60, 80, 0.8);
     }
     50% {
-      box-shadow: 0px 0px 20px 0px rgba(34, 60, 80, 0.6);
+      box-shadow: 0px 0px 20px 0px rgba(34, 60, 80, 0.8);
     }
     100% {
-      box-shadow: 0px 0px 0px 0px rgba(34, 60, 80, 0.6);
+      box-shadow: 0px 0px 0px 0px rgba(34, 60, 80, 0.8);
     }
   }
 .layout {
@@ -67,6 +67,9 @@ body {
 }
 
 .fav {
+  font-family: "Montserrat Alternates", serif;
+  font-weight: 600;
+  font-style: normal;
   grid-template-areas: favorite;
   width: min(calc(90vw - 2rem), 820px);
   align-self: end;
