@@ -28,6 +28,7 @@ const weatherClass = computed(() => {
 });
 const showFav = () => {
   let fav = localStorage.getItem("city");
+  if (fav == null) fav = { cities: [] };
   fav = JSON.parse(fav);
   favList.value = fav.cities;
 };
