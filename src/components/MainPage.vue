@@ -13,8 +13,9 @@ let favList = ref();
 let error = reactive({
   bool: false,
   msg: "",
-  // class: "animate__animated animate__fadeInUp",
 });
+let one = ref(false);
+let two = ref(false);
 let loader = ref("");
 let weather = reactive({
   weather: "",
@@ -35,8 +36,6 @@ const showFav = () => {
 
 const addFav = () => {
   let fav = localStorage.getItem("city");
-
-  isShow.value = false;
   if (fav != null) {
     fav = JSON.parse(fav);
     if (!fav.cities.includes(weather.city)) {
@@ -44,9 +43,10 @@ const addFav = () => {
         fav.cities.push(weather.city);
         localStorage.setItem("city", JSON.stringify({ cities: fav.cities }));
       } else {
-        console.log("err 4");
-        // error.msg = "May add only 4 cities";
+        isShow.value = false;
         error.bool = true;
+        console.log("err 4", error.bool, isShow.value);
+        error.msg = "May add only 4 cities";
       }
       showFav();
     }
@@ -99,7 +99,7 @@ const query = async (item) => {
 };
 const queryFav = (item) => {
   if (event.target.tagName === "BUTTON") return;
-  console.log("repeat");
+  console.log("repeat", error.bool, isShow.value);
   input._value.value = item;
 
   query(input._value.value);
@@ -113,7 +113,7 @@ onBeforeMount(showFav);
 </script>
 
 <template>
-  <div class="layout" :class="weatherClass">
+  <div class="layout" :class="{ weatherClass, waiting: loader }">
     <div class="fav" v-auto-animate>
       <div v-for="(item, index) in favList" :key="item" @click="queryFav(item)">
         <p>
@@ -182,13 +182,12 @@ onBeforeMount(showFav);
         </Transition>
       </div>
     </form>
-
-    <Transition
-      name="custom-classes"
-      enter-active-class="animate__animated animate__zoomIn"
-      leave-active-class="animate__animated animate__zoomOut"
-    >
-      <div class="response" v-if="isShow || error.bool">
+    <div class="response">
+      <Transition
+        name="custom-classes"
+        enter-active-class="animate__animated animate__zoomIn"
+        leave-active-class="animate__animated animate__zoomOut"
+      >
         <div v-if="isShow" class="weatherResponse">
           <div>
             <img :src="weather.icon" alt="" />
@@ -262,15 +261,62 @@ onBeforeMount(showFav);
             <p>{{ weather.humidity }}%</p>
           </div>
         </div>
+      </Transition>
+      <Transition
+        name="custom-classes"
+        enter-active-class="animate__animated animate__zoomIn"
+        leave-active-class="animate__animated animate__zoomOut"
+      >
         <div class="error" v-if="error.bool">
           {{ error.msg }}
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </div>
   </div>
+  <!-- <div class="test">
+    <Transition
+      name="custom-classes"
+      enter-active-class="animate__animated animate__zoomIn"
+      leave-active-class="animate__animated animate__zoomOut"
+      ><p v-if="one">1</p></Transition
+    >
+    <Transition
+      name="custom-classes"
+      enter-active-class="animate__animated animate__zoomIn"
+      leave-active-class="animate__animated animate__zoomOut"
+      ><p v-if="two">2</p></Transition
+    >
+    <button
+      @click="
+        () => {
+          one = true;
+          two = false;
+        }
+      "
+    >
+      one
+    </button>
+    <button
+      @click="
+        () => {
+          one = false;
+          two = true;
+        }
+      "
+    >
+      two
+    </button>
+  </div> -->
 </template>
 
 <style scoped>
+/* .test {
+  position: relative;
+}
+.test p {
+  position: absolute;
+  padding: 1rem;
+} */
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat+Alternates:wght@500;600&family=Raleway:wght@600&display=swap");
 .read-the-docs {
   color: #888;
