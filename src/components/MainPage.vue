@@ -273,50 +273,9 @@ onBeforeMount(showFav);
       </Transition>
     </div>
   </div>
-  <!-- <div class="test">
-    <Transition
-      name="custom-classes"
-      enter-active-class="animate__animated animate__zoomIn"
-      leave-active-class="animate__animated animate__zoomOut"
-      ><p v-if="one">1</p></Transition
-    >
-    <Transition
-      name="custom-classes"
-      enter-active-class="animate__animated animate__zoomIn"
-      leave-active-class="animate__animated animate__zoomOut"
-      ><p v-if="two">2</p></Transition
-    >
-    <button
-      @click="
-        () => {
-          one = true;
-          two = false;
-        }
-      "
-    >
-      one
-    </button>
-    <button
-      @click="
-        () => {
-          one = false;
-          two = true;
-        }
-      "
-    >
-      two
-    </button>
-  </div> -->
 </template>
 
 <style scoped>
-/* .test {
-  position: relative;
-}
-.test p {
-  position: absolute;
-  padding: 1rem;
-} */
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat+Alternates:wght@500;600&family=Raleway:wght@600&display=swap");
 .read-the-docs {
   color: #888;

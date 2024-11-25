@@ -205,7 +205,7 @@ form div:hover {
 .weatherResponse div {
   background-color: #fff;
   margin: 0;
-  width: min(156px, 100%);
+  width: min(120px, 100%);
   height: 70px;
   border-radius: .75rem;
   font-size: 1rem;
@@ -215,14 +215,17 @@ form div:hover {
   columns: 2;
   gap:.5rem;
   justify-content: flex-start;
+  padding: 0 0.75rem;
 }
 .weatherResponse div:first-child {
   width: min(300px, 100%);
 }
 .weatherResponse div p{
+  width: 60%;
   word-wrap: break-word;
   word-break:break-word;
   hyphens:auto;
+  text-align: center;
 padding: 0;
 margin: 0;
 }
@@ -286,5 +289,45 @@ margin: 0;
 
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 800px) {
+  .fav {
+    flex-wrap: wrap;
+    flex-direction: row;
+    row-gap: .5rem;
+    width: min(calc(100vw - 2rem), 820px);
+  }
+  .fav div {
+    flex-basis: calc(46% - 1rem);
+    flex-grow: 1;
+  }
+  form {
+    width: min(calc(100vw - 3rem), 820px);
+  }
+  form input[type="text"] {
+    width: 100%;
+  }
+  .response {
+    width: fit-content;
+    width: min(calc(100vw - 2rem), 820px);
+  }
+  .weatherResponse {
+    row-gap: .5rem;
+    justify-content: space-between;
+  }
+  .weatherResponse div:first-child {
+    flex-grow: 1;
+  }
+  .weatherResponse div:first-child p {
+    width: 100%;
+  }
+  .weatherResponse div:not(:first-child) {
+    flex-basis: 25%;
+  }
+  .error {
+    width: auto;
+    justify-self: center;
   }
 }
